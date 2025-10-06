@@ -1,0 +1,17 @@
+.site-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.header-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+footer {
+    padding: 16px 0;
+    text-align: center;
+}

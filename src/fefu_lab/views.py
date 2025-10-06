@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from django.views import generic
 
-# Create your views here.
+
+class IndexView(generic.TemplateView):
+    """Отображение корневой страницы приложения fefu_lab."""
+
+    template_name = "fefu_lab/base.html"
