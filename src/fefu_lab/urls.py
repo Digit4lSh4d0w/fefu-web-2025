@@ -4,8 +4,14 @@ from fefu_lab import views
 
 app_name = "fefu_lab"
 urlpatterns = [
+    # Root
     path("", views.IndexView.as_view(), name="index"),
-    path("", views.IndexView.as_view(), name="home"),
-    path("", views.IndexView.as_view(), name="about"),
-    path("", views.IndexView.as_view(), name="students"),
+    # About
+    path("about/", views.AboutView.as_view(), name="about"),
+    # Students
+    path("students/", views.student_list, name="student_list"),
+    path("students/<int:pk>/", views.StudentDetailView.as_view(), name="student_detail"),
+    # Courses
+    path("courses/", views.course_list, name="course_list"),
+    path("courses/<slug:slug>/", views.CourseDetailView.as_view(), name="course_detail"),
 ]

@@ -1,0 +1,38 @@
+{% extends 'fefu_lab/base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<h1>Добро пожаловать!</h1>
+
+{% if latest_students %}
+<h2><a href="{% url 'fefu_lab:student_list' %}">Последние студенты</a></h2>
+<table>
+    <tr><th>ID</th><th>Имя</th><th>Дата зачисления</th></tr>
+    {% for s in latest_students %}
+    <tr>
+        <td>{{ s.id }}</td>
+        <td><a href="{% url 'fefu_lab:student_detail' s.id %}">{{ s.name }}</a></td>
+        <td>{{ s.enrollment_date }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<h2>Никаких студентов пока не зачислено</h2>
+{% endif %}
+
+{% if latest_courses %}
+<h2><a href="{% url 'fefu_lab:course_list' %}">Последние курсы</a></h2>
+<table>
+    <tr><th>Название</th><th>Дата создания</th></tr>
+    {% for c in latest_courses %}
+    <tr>
+        <td><a href="{% url 'fefu_lab:course_detail' c.slug %}">{{ c.title }}</a></td>
+        <td>{{ c.created_at }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<h2>Никаких курсов пока не было создано</h2>
+{% endif %}
+{% endblock %}
