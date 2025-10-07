@@ -63,3 +63,7 @@ def course_list(request: HttpRequest) -> HttpResponse:
         "fefu_lab/course_list.html",
         {"courses": courses, "form": form}
     )
+
+
+def custom_404(request: HttpRequest, exception: Exception) -> HttpResponse:
+    return render(request, "fefu_lab/404.html", status=404)
