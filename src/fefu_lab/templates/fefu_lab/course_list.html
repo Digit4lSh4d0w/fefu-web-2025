@@ -3,24 +3,6 @@
 {% block title %}Список курсов{% endblock %}
 
 {% block content %}
-<h2>Добавить курс</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Добавить</button>
-</form>
-{% if courses %}
-<h2>Последние курсы</h2>
-<table>
-    <tr><th>Название</th><th>Дата создания</th></tr>
-    {% for c in courses %}
-    <tr>
-        <td><a href="{% url 'fefu_lab:course_detail' c.slug %}">{{ c.title }}</a></td>
-        <td>{{ c.created_at }}</td>
-    </tr>
-    {% endfor %}
-</table>
-{% else %}
-<h2>Никаких курсов пока не было создано</h2>
-{% endif %}
+<h2>Список всех курсов</h2>
+{% include 'fefu_lab/_course_list.html' with courses=courses form=form %}
 {% endblock %}

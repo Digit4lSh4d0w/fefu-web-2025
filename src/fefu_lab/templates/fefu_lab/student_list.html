@@ -3,25 +3,6 @@
 {% block title %}Список студентов{% endblock %}
 
 {% block content %}
-<h2>Добавить студента</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Добавить</button>
-</form>
-{% if students %}
-<h2>Список студентов</h2>
-<table>
-    <tr><th>ID</th><th>Имя</th><th>Дата зачисления</th></tr>
-    {% for s in students %}
-    <tr>
-        <td>{{ s.id }}</td>
-        <td><a href="{% url 'fefu_lab:student_detail' s.id %}">{{ s.name }}</a></td>
-        <td>{{ s.enrollment_date }}</td>
-    </tr>
-    {% endfor %}
-</table>
-{% else %}
-<h2>Никаких студентов пока не зачислено</h2>
-{% endif %}
+<h2>Список всех студентов</h2>
+{% include 'fefu_lab/_student_list.html' with students=students form=form %}
 {% endblock %}

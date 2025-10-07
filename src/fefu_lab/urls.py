@@ -5,7 +5,7 @@ from fefu_lab import views
 app_name = "fefu_lab"
 urlpatterns = [
     # Root
-    path("", views.IndexView.as_view(), name="index"),
+    path("", views.index, name="index"),
     # About
     path("about/", views.AboutView.as_view(), name="about"),
     # Students
