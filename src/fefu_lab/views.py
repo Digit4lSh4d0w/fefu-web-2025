@@ -2,7 +2,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.views import generic
 
-from fefu_lab.forms import CourseCreationForm, StudentCreationForm
+from fefu_lab.forms import CourseCreationForm, FeedbackForm, StudentCreationForm
 from fefu_lab.models import Course, Student
 
 
@@ -80,3 +80,12 @@ def course_list(request: HttpRequest) -> HttpResponse:
 def custom_404(request: HttpRequest, exception: Exception) -> HttpResponse:
     """Обработчик некорректных запросов."""
     return render(request, "fefu_lab/404.html", status=404)
+
+
+def feedback(request: HttpRequest) -> HttpResponse:
+    """Страница с формой обратной связи."""
+    form = FeedbackForm(request.POST or None)
+    if form.is_valid():
+        return redirect("fefu_lab:index")
+
+    return render(request, "fefu_lab/feedback.html", {"form": form})
