@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 
@@ -9,6 +10,7 @@ def registration(request: HttpRequest) -> HttpResponse:
     form = RegistrationForm(request.POST or None)
     if form.is_valid():
         form.save()
+        messages.success(request, "Регистрация успешно завершена!")
         return redirect("fefu_lab:index")
 
     return render(request, "fefu_lab/registration.html", {"form": form})

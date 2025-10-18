@@ -55,6 +55,21 @@ div#courseForm {
   display: block;
 }
 
+.alert {
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
 /* Errors */
 
 .error {
