@@ -4,5 +4,6 @@
 
 {% block content %}
 <h1>Курс "{{ course.title|lower }}"</h1>
+<p>Идентификатор: {{ course.slug }}</p>
 <p>Дата создания: {{ course.created_at }}</p>
 {% endblock %}

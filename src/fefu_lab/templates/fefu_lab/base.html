@@ -1,23 +1,23 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-    	<meta charset="UTF-8">
-    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    	<title>{% block title %} BASE {% endblock %}</title>
-    	<link rel="stylesheet" href="{% static 'fefu_lab/main.css' %}">
-    	{% block extra_css %}{% endblock %}
-    </head>
-    <body>
-        <div class="site-container">
-            {% include 'fefu_lab/header.html' %}
-            <main id="fefu_lab">
-                {% block content %}{% endblock %}
-            </main>
-            {% include 'fefu_lab/footer.html' %}
-        </div>
+  <head>
+   	<meta charset="UTF-8">
+   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+   	<title>{% block title %} BASE {% endblock %}</title>
+   	<link rel="stylesheet" href="{% static 'fefu_lab/main.css' %}">
+   	{% block extra_css %}{% endblock %}
+  </head>
+  <body>
+    <div class="site-container">
+      {% include 'fefu_lab/header.html' %}
+      <main id="fefu_lab">
+          {% block content %}{% endblock %}
+      </main>
+      {% include 'fefu_lab/footer.html' %}
+    </div>
 
-        <script src="{% static 'fefu_lab/main.js' %}"></script>
-        {% block extra_js %}{% endblock %}
-    </body>
+    <script src="{% static 'fefu_lab/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+  </body>
 </html>

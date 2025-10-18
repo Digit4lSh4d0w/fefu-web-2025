@@ -1,0 +1,10 @@
+<div class="error">
+  <h1>Ошибка!</h1>
+  <ul>
+    {% for field, errors in form.errors.items %}
+      {% for error in errors %}
+      <li>{{ error|escape }}</li>
+      {% endfor %}
+    {% endfor %}
+  </ul>
+</div>

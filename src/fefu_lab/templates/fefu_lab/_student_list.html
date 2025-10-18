@@ -1,21 +1,39 @@
+{% if form.errors %}
+  {% include 'fefu_lab/_form_errors.html' with form=form %}
+{% endif %}
+
 <button onclick="toggleForm('studentForm')">⬇️ Добавить студента</button>
 <div id="studentForm" class="hidden">
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Добавить</button>
-    </form>
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label class="form-label" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+      {{ form.name }}
+    </div>
+
+    <button type="submit">Добавить</button>
+  </form>
 </div>
 {% if students %}
 <table>
-    <tr><th>ID</th><th>Имя</th><th>Дата зачисления</th></tr>
-    {% for s in students %}
-    <tr>
-        <td>{{ s.id }}</td>
-        <td><a href="{% url 'fefu_lab:student_detail' s.id %}">{{ s.name }}</a></td>
-        <td>{{ s.enrollment_date }}</td>
-    </tr>
-    {% endfor %}
+  <colgroup>
+    <col style="width: 5%">
+    <col style="width: 65%">
+    <col style="width: 30%">
+  </colgroup>
+  <tr>
+    <th>ID</th>
+    <th>Имя</th>
+    <th>Дата зачисления</th>
+  </tr>
+  {% for s in students %}
+  <tr>
+    <td>{{ s.id }}</td>
+    <td><a href="{% url 'fefu_lab:student_detail' s.id %}">{{ s.name }}</a></td>
+    <td>{{ s.enrollment_date }}</td>
+  </tr>
+  {% endfor %}
 </table>
 {% else %}
 <h2>Никаких студентов пока не зачислено</h2>
