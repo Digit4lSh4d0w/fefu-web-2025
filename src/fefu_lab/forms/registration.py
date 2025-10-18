@@ -8,33 +8,53 @@ from fefu_lab.models import User
 @final
 class RegistrationForm(forms.ModelForm):
     username = forms.CharField(
-        label="Имя пользователя",
+        label="Имя пользователя:",
         required=True,
         min_length=4,
         max_length=30,
-        widget=forms.TextInput(attrs={"placeholder": "Введите ваше имя"}),
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Введите ваше имя",
+                "class": "form-input",
+            },
+        ),
     )
 
     email = forms.EmailField(
-        label="Email",
+        label="Email:",
         required=True,
-        widget=forms.EmailInput(attrs={"placeholder": "Введите ваш Email"}),
+        widget=forms.EmailInput(
+            attrs={
+                "placeholder": "Введите ваш Email",
+                "class": "form-input",
+            },
+        ),
     )
 
     password = forms.CharField(
-        label="Пароль",
+        label="Пароль:",
         required=True,
         min_length=16,
         max_length=128,
-        widget=forms.PasswordInput(attrs={"placeholder": "Придумайте пароль"}),
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Придумайте пароль",
+                "class": "form-input",
+            },
+        ),
     )
 
     password_confirm = forms.CharField(
-        label="Подтверждение пароля",
+        label="Подтверждение пароля:",
         required=True,
         min_length=16,
         max_length=128,
-        widget=forms.PasswordInput(attrs={"placeholder": "Введите пароль снова"}),
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder": "Введите пароль снова",
+                "class": "form-input",
+            },
+        ),
     )
 
     @final
