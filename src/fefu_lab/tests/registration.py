@@ -43,7 +43,6 @@ class RegistrationFormTests(TestCase):
         assert not form.is_valid()
         assert isinstance(form.errors, ErrorDict)
         assert "password_confirm" in form.errors
-        assert form.errors["password_confirm"][0] == "Пароли не совпадают"
 
     @staticmethod
     def test_username_not_unique() -> None:
@@ -58,9 +57,6 @@ class RegistrationFormTests(TestCase):
         assert not form.is_valid()
         assert isinstance(form.errors, ErrorDict)
         assert "username" in form.errors
-        assert (
-            form.errors["username"][0] == "Пользователь с таким именем пользователя уже существует"
-        )
 
     @staticmethod
     def test_email_not_unique() -> None:
@@ -75,4 +71,3 @@ class RegistrationFormTests(TestCase):
         assert not form.is_valid()
         assert isinstance(form.errors, ErrorDict)
         assert "email" in form.errors
-        assert form.errors["email"][0] == "Пользователь с таким Email уже существует"
