@@ -6,4 +6,12 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "django>=5.2.7",
+    "django-stubs>=5.2.7",
+]
+
+[tool.ruff]
+ignore = [
+    "CPY001",
+    "D100", "D101", "D102", "D105", "D106",
+    "RUF001", "RUF003"
 ]

@@ -16,4 +16,6 @@ urlpatterns = [
     path("courses/<slug:slug>/", views.CourseDetailView.as_view(), name="course_detail"),
     # Feedback
     path("feedback/", views.feedback, name="feedback"),
+    # Registration
+    path("registration/", views.registration, name="registration"),
 ]

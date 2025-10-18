@@ -2,7 +2,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.views import generic
 
-from fefu_lab.forms import CourseCreationForm, FeedbackForm, StudentCreationForm
+from fefu_lab.forms import CourseCreationForm, FeedbackForm, RegistrationForm, StudentCreationForm
 from fefu_lab.models import Course, Student
 
 
@@ -89,3 +89,15 @@ def feedback(request: HttpRequest) -> HttpResponse:
         return redirect("fefu_lab:index")
 
     return render(request, "fefu_lab/feedback.html", {"form": form})
+
+
+def registration(request: HttpRequest) -> HttpResponse:
+    """Страница с формой регистрации."""
+    if request.method == "POST":
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("fefu_lab:index")
+    else:
+        form = RegistrationForm()
+    return render(request, "fefu_lab/registration.html", {"form": form})
