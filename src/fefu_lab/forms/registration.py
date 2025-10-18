@@ -77,6 +77,20 @@ class RegistrationForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
+        has_digit = any(ch.isdigit() for ch in password)
+        has_lower = any(ch.islower() for ch in password)
+        has_upper = any(ch.isupper() for ch in password)
+
+        if not all((has_digit, has_lower, has_upper)):
+            msg = (
+                "Пароль слишком простой."
+                "Пароль должен содержать:"
+                "1. Хотя бы одну прописную букву."
+                "2. Хотя бы одну заглавную букву."
+                "3. Хотя бы одну цифру."
+            )
+            self.add_error("password", msg)
+
         password_confirm = cleaned_data.get("password_confirm")
         if password != password_confirm:
             self.add_error("password_confirm", "Пароли не совпадают")
