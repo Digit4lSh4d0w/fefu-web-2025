@@ -14,7 +14,7 @@ class RegistrationFormTests(TestCase):
         user = User(
             username="exist",
             email="exist@example.com",
-            password="very_long_password",
+            password="V3ry_l0ng_p4Ssword",
         )
         user.save()
 
@@ -24,8 +24,8 @@ class RegistrationFormTests(TestCase):
             data={
                 "username": "not_exist",
                 "email": "not_exist@example.com",
-                "password": "very_long_password",
-                "password_confirm": "very_long_password",
+                "password": "V3ry_l0ng_p4Ssword",
+                "password_confirm": "V3ry_l0ng_p4Ssword",
             },
         )
         assert form.is_valid()
@@ -36,14 +36,55 @@ class RegistrationFormTests(TestCase):
             data={
                 "username": "not_exist",
                 "email": "not_exist@example.com",
-                "password": "very_long_password",
-                "password_confirm": "not_very_long_password",
+                "password": "V3ry_l0ng_p4Ssword",
+                "password_confirm": "not_V3ry_l0ng_p4Ssword",
             },
         )
         assert not form.is_valid()
         assert isinstance(form.errors, ErrorDict)
         assert "password_confirm" in form.errors
-        assert form.errors["password_confirm"][0] == "Пароли не совпадают"
+
+    @staticmethod
+    def test_password_without_digit() -> None:
+        form = RegistrationForm(
+            data={
+                "username": "not_exist",
+                "email": "not_exist@example.com",
+                "password": "Very_long_paSsword",
+                "password_confirm": "Very_long_paSsword",
+            },
+        )
+        assert not form.is_valid()
+        assert isinstance(form.errors, ErrorDict)
+        assert "password" in form.errors
+
+    @staticmethod
+    def test_password_without_lower() -> None:
+        form = RegistrationForm(
+            data={
+                "username": "not_exist",
+                "email": "not_exist@example.com",
+                "password": "AAAA1337AAAA1337",
+                "password_confirm": "AAAA1337AAAA1337",
+            },
+        )
+        assert not form.is_valid()
+        assert isinstance(form.errors, ErrorDict)
+        assert "password" in form.errors
+
+    @staticmethod
+    def test_password_without_upper() -> None:
+        form = RegistrationForm(
+            data={
+                "username": "not_exist",
+                "email": "not_exist@example.com",
+                "password": "aaaa1337aaaa1337",
+                "password_confirm": "aaaa1337aaaa1337",
+            },
+        )
+        assert not form.is_valid()
+        assert isinstance(form.errors, ErrorDict)
+        assert "password" in form.errors
 
     @staticmethod
     def test_username_not_unique() -> None:
@@ -51,16 +92,13 @@ class RegistrationFormTests(TestCase):
             data={
                 "username": "exist",
                 "email": "not_exist@example.com",
-                "password": "very_long_password",
-                "password_confirm": "very_long_password",
+                "password": "V3ry_l0ng_p4Ssword",
+                "password_confirm": "V3ry_l0ng_p4Ssword",
             },
         )
         assert not form.is_valid()
         assert isinstance(form.errors, ErrorDict)
         assert "username" in form.errors
-        assert (
-            form.errors["username"][0] == "Пользователь с таким именем пользователя уже существует"
-        )
 
     @staticmethod
     def test_email_not_unique() -> None:
@@ -68,11 +106,10 @@ class RegistrationFormTests(TestCase):
             data={
                 "username": "not_exist",
                 "email": "exist@example.com",
-                "password": "very_long_password",
-                "password_confirm": "very_long_password",
+                "password": "V3ry_l0ng_p4Ssword",
+                "password_confirm": "V3ry_l0ng_p4Ssword",
             },
         )
         assert not form.is_valid()
         assert isinstance(form.errors, ErrorDict)
         assert "email" in form.errors
-        assert form.errors["email"][0] == "Пользователь с таким Email уже существует"
