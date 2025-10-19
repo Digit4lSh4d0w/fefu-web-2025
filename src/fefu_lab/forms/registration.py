@@ -74,9 +74,8 @@ class RegistrationForm(forms.ModelForm):
             self.add_error("email", "Пользователь с таким Email уже существует")
         return email
 
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data.get("password")
+    def clean_password(self):
+        password = self.cleaned_data.get("password")
         has_digit = any(ch.isdigit() for ch in password)
         has_lower = any(ch.islower() for ch in password)
         has_upper = any(ch.isupper() for ch in password)
@@ -91,6 +90,11 @@ class RegistrationForm(forms.ModelForm):
             ]
             self.add_error("password", msg)
 
+        return password
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
         password_confirm = cleaned_data.get("password_confirm")
         if password != password_confirm:
             self.add_error("password_confirm", "Пароли не совпадают")
