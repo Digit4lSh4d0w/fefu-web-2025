@@ -21,5 +21,5 @@ def student_list(request: HttpRequest) -> HttpResponse:
         form.save()
         return redirect("fefu_lab:student_list")
 
-    students = Student.objects.order_by("-enrollment_date")
+    students = Student.objects.filter(is_active=True)[:5]
     return render(request, "fefu_lab/student_list.html", {"students": students, "form": form})

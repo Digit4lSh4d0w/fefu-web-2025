@@ -17,7 +17,7 @@ def index(request: HttpRequest) -> HttpResponse:
         course_form.save()
         return redirect("fefu_lab:index")
 
-    latest_students = Student.objects.order_by("-enrollment_date")[:5]
+    latest_students = Student.objects.filter(is_active=True)[:5]
     latest_courses = Course.objects.order_by("-created_at")[:5]
 
     return render(
