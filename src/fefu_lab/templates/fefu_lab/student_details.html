@@ -1,0 +1,12 @@
+{% extends 'fefu_lab/base/base.html' %}
+
+{% block title %}Студент {{ student.full_name }}{% endblock %}
+
+{% block content %}
+  <h1>Студент {{ student.full_name }}</h1>
+  <p>Имя: {{ student.first_name }}</p>
+  <p>Фамилия: {{ student.last_name }}</p>
+  <p>День рождения: {{ student.birthday }}</p>
+  <p>Факультет: {{ student.get_faculty_display_name }}</p>
+  <p>Активен: {{ student.is_active }}</p>
+{% endblock %}

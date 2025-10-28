@@ -1,0 +1,19 @@
+<table>
+  <colgroup>
+    <col style="width: 10%;">
+    <col style="width: 50%;">
+    <col style="width: 40%;">
+  </colgroup>
+  <tr>
+    <th>ID</th>
+    <th>Имя</th>
+    <th>Факультет</th>
+  </tr>
+  {% for s in students %}
+    <tr>
+      <td>{{ s.id }}</td>
+      <td><a href="{% url 'fefu_lab:student_detail' s.id %}">{{ s.full_name }}</a></td>
+      <td>{{ s.get_faculty_display_name }}</td>
+    </tr>
+  {% endfor %}
+</table>

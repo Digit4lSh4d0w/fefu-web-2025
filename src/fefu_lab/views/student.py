@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.views import generic
@@ -10,7 +11,7 @@ class StudentDetailView(generic.DetailView):
     """Страница детализации информации о студенте."""
 
     model = Student
-    template_name = "fefu_lab/student_detail.html"
+    template_name = "fefu_lab/student_details.html"
     context_object_name = "student"
 
 
@@ -19,7 +20,8 @@ def student_list(request: HttpRequest) -> HttpResponse:
     form = StudentCreationForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return redirect("fefu_lab:student_list")
+        messages.success(request, "Студент успешно добавлен!")
+        return redirect("fefu_lab:students_list")
 
     students = Student.objects.filter(is_active=True)[:5]
-    return render(request, "fefu_lab/student_list.html", {"students": students, "form": form})
+    return render(request, "fefu_lab/students_list.html", {"students": students, "form": form})

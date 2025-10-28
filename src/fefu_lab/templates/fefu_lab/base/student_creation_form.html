@@ -1,14 +1,9 @@
-{% extends 'fefu_lab/base/base.html' %}
-
-{% block title %}Обратная связь{% endblock %}
-
-{% block content %}
-
 {% if form.errors %}
   {% include 'fefu_lab/base/form_errors.html' with form=form %}
 {% endif %}
 
-<div id="feedbackForm">
+<button onclick="toggleForm('studentCreationForm')">⬇️ Добавить студента</button>
+<div id="studentCreationForm" class="hidden">
   <form method="post">
     {% csrf_token %}
 
@@ -19,7 +14,6 @@
       </div>
     {% endfor %}
 
-    <button type="submit">Отправить</button>
+    <button type="submit">Добавить</button>
   </form>
 </div>
-{% endblock %}

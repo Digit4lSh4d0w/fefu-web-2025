@@ -1,0 +1,18 @@
+{% extends 'fefu_lab/base/base.html' %}
+
+{% block title %}Список студентов{% endblock %}
+
+{% block content %}
+  {% if messages %}
+    {% include 'fefu_lab/base/messages.html' with messages=messages %}
+  {% endif %}
+
+  {% if students %}
+    <h2>Список всех студентов</h2>
+    {% include 'fefu_lab/base/student_creation_form.html' with form=form %}
+    {% include 'fefu_lab/base/students_list.html' with students=students %}
+  {% else %}
+    <h2>Студентов пока нет</h2>
+    {% include 'fefu_lab/base/student_creation_form.html' with form=form %}
+  {% endif %}
+{% endblock %}

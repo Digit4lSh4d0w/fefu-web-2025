@@ -1,34 +1,16 @@
-{% if form %}
-  {% if form.errors %}
-    {% include 'fefu_lab/_form_errors.html' with form=form %}
-  {% endif %}
-
-  <button onclick="toggleForm('courseForm')">⬇️ Добавить курс</button>
-  <div id="courseForm" class="hidden">
-    <form method="post">
-      {% csrf_token %}
-
-      {% for field in form %}
-        <div class="form-group">
-          <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-          {{ field }}
-        </div>
-      {% endfor %}
-
-      <button type="submit">Добавить</button>
-    </form>
-  </div>
-{% endif %}
-
 <table>
+  <colgroup>
+    <col style="width: 70%;">
+    <col style="width: 30%;">
+  </colgroup>
   <tr>
     <th>Название</th>
     <th>Дата создания</th>
   </tr>
   {% for c in courses %}
-  <tr>
+    <tr>
       <td><a href="{% url 'fefu_lab:course_detail' c.slug %}">{{ c.title }}</a></td>
       <td>{{ c.created_at }}</td>
-  </tr>
+    </tr>
   {% endfor %}
 </table>

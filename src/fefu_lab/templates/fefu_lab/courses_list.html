@@ -3,9 +3,14 @@
 {% block title %}Список курсов{% endblock %}
 
 {% block content %}
+  {% if messages %}
+    {% include 'fefu_lab/base/messages.html' with messages=messages %}
+  {% endif %}
+
   {% if courses %}
     <h2>Список всех курсов</h2>
-    {% include 'fefu_lab/base/courses_list.html' with courses=courses form=form %}
+    {% include 'fefu_lab/base/course_creation_form.html' with form=form %}
+    {% include 'fefu_lab/base/courses_list.html' with courses=courses %}
   {% else %}
     <h2>Курсов пока нет</h2>
     {% include 'fefu_lab/base/course_creation_form.html' with form=form %}

@@ -10,11 +10,11 @@
   </head>
   <body>
     <div class="site-container">
-      {% include 'fefu_lab/header.html' %}
-      <main id="fefu_lab">
-          {% block content %}{% endblock %}
-      </main>
-      {% include 'fefu_lab/footer.html' %}
+      {% include 'fefu_lab/base/header.html' %}
+        <main id="fefu_lab">
+            {% block content %}{% endblock %}
+        </main>
+      {% include 'fefu_lab/base/footer.html' %}
     </div>
 
     <script src="{% static 'fefu_lab/main.js' %}"></script>

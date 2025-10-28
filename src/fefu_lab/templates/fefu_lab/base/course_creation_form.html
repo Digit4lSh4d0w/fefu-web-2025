@@ -1,9 +1,9 @@
 {% if form.errors %}
-  {% include 'fefu_lab/_form_errors.html' with form=form %}
+  {% include 'fefu_lab/base/form_errors.html' with form=form %}
 {% endif %}
 
-<button onclick="toggleForm('courseForm')">⬇️ Добавить курс</button>
-<div id="courseForm" class="hidden">
+<button onclick="toggleForm('courseCreationForm')">⬇️ Добавить курс</button>
+<div id="courseCreationForm" class="hidden">
   <form method="post">
     {% csrf_token %}
 
