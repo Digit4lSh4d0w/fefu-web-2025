@@ -60,6 +60,30 @@ class Student(AbstractUser):
         return self.FACULTY_CHOICES.get(self.faculty, "Неизвестно")
 
 
+@final
+class Teacher(AbstractUser):
+    FACULTY_CHOICES = {
+        "CS": "Кибербезопасность",
+        "SE": "Программная инженерия",
+        "IT": "Информационные технологии",
+        "DS": "Наука о данных",
+        "WEB": "Веб-технологии",
+    }
+
+    faculty = models.CharField(
+        max_length=4,
+        choices=FACULTY_CHOICES,
+        default="CS",
+        verbose_name="Факультет",
+    )
+
+    @final
+    class Meta:
+        verbose_name = "Преподаватель"
+        verbose_name_plural = "Преподаватели"
+        db_table = "teachers"
+
+
 class Course(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
