@@ -84,10 +84,29 @@ class Teacher(AbstractUser):
         db_table = "teachers"
 
 
+@final
 class Course(models.Model):
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=200, unique=True, verbose_name="Название")
+    slug = models.SlugField(max_length=200, unique=True, verbose_name="Машиночитаемое название")
+    description = models.CharField(max_length=1500, verbose_name="Описание")
+    duration = models.PositiveIntegerField(verbose_name="Продолжительность курса (в минутах)")
+    teacher = models.ForeignKey(
+        Teacher,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name="Преподаватель",
+    )
+    is_active = models.BooleanField(default=True, verbose_name="Активен")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
+
+    @final
+    class Meta:
+        verbose_name = "Курс"
+        verbose_name_plural = "Курсы"
+        ordering = ["title"]
+        db_table = "courses"
 
     def __str__(self):
         return self.title

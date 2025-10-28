@@ -19,7 +19,7 @@ def course_list(request: HttpRequest) -> HttpResponse:
     form = CourseCreationForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return redirect("fefu_lab:course_list")
+        return redirect("fefu_lab:courses_list")
 
     courses = Course.objects.order_by("-created_at")
-    return render(request, "fefu_lab/course_list.html", {"courses": courses, "form": form})
+    return render(request, "fefu_lab/courses_list.html", {"courses": courses, "form": form})

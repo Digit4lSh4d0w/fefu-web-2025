@@ -1,4 +1,4 @@
-{% extends 'fefu_lab/base.html' %}
+{% extends 'fefu_lab/base/base.html' %}
 
 {% block title %}Главная{% endblock %}
 
@@ -17,6 +17,12 @@
 
 <h2>Список последних 5 студентов</h2>
 {% include 'fefu_lab/_student_list.html' with students=latest_students form=student_form %}
-<h2>Список последних 5 курсов</h2>
-{% include 'fefu_lab/_course_list.html' with courses=latest_courses form=course_form %}
+
+{% if latest_courses %}
+  <h2>Список последних 5 курсов</h2>
+  {% include 'fefu_lab/base/courses_list.html' with courses=latest_courses %}
+{% else %}
+  <h2>Курсов пока нет</h2>
+{% endif %}
+
 {% endblock %}

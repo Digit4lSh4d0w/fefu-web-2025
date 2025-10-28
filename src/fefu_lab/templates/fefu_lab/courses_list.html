@@ -1,0 +1,13 @@
+{% extends 'fefu_lab/base/base.html' %}
+
+{% block title %}Список курсов{% endblock %}
+
+{% block content %}
+  {% if courses %}
+    <h2>Список всех курсов</h2>
+    {% include 'fefu_lab/base/courses_list.html' with courses=courses form=form %}
+  {% else %}
+    <h2>Курсов пока нет</h2>
+    {% include 'fefu_lab/base/course_creation_form.html' with form=form %}
+  {% endif %}
+{% endblock %}

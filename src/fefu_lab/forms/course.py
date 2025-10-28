@@ -2,14 +2,15 @@ from typing import final
 
 from django import forms
 
-from fefu_lab.models import Course
+from fefu_lab.models import Course, Teacher
 
 
 @final
 class CourseCreationForm(forms.ModelForm):
     title = forms.CharField(
-        label="Название курса:",
+        label="Название:",
         required=True,
+        min_length=10,
         max_length=200,
         widget=forms.TextInput(
             attrs={
@@ -20,8 +21,9 @@ class CourseCreationForm(forms.ModelForm):
     )
 
     slug = forms.SlugField(
-        label="Идентификатор курса:",
+        label="Идентификатор:",
         required=True,
+        min_length=10,
         max_length=200,
         widget=forms.TextInput(
             attrs={
@@ -31,7 +33,52 @@ class CourseCreationForm(forms.ModelForm):
         ),
     )
 
+    description = forms.CharField(
+        label="Описание:",
+        max_length=1500,
+        widget=forms.Textarea(
+            attrs={
+                "placeholder": "Введите описание курса",
+                "class": "form-input",
+            },
+        ),
+    )
+
+    duration = forms.IntegerField(
+        label="Продолжительность:",
+        required=True,
+        # ~ 1 неделя с занятиями по 3 часа в день
+        min_value=900,
+        # ~ 6 месяцев с занятиями по 3 часа в день
+        max_value=21600,
+        initial=900,
+        widget=forms.NumberInput(
+            attrs={
+                "placeholder": "Введите продолжительность курса (в минутах)",
+                "class": "form-input",
+            },
+        ),
+    )
+
+    teacher = forms.ModelChoiceField(
+        queryset=Teacher.objects.all(),
+        label="Преподаватель:",
+        required=True,
+        initial=Teacher.objects.all()[0],
+        widget=forms.Select(
+            attrs={
+                "class": "form-input",
+            },
+        ),
+    )
+
     @final
     class Meta:
         model = Course
-        fields = ["title", "slug"]
+        fields = [
+            "title",
+            "slug",
+            "description",
+            "duration",
+            "teacher",
+        ]

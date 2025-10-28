@@ -51,5 +51,26 @@ class TeacherAdmin(admin.ModelAdmin):
     ]
 
 
-admin.site.register(Course)
+@admin.register(Course)
+class CourseAdmin(admin.ModelAdmin):
+    list_display = [
+        "title",
+        "duration",
+        "teacher",
+        "is_active",
+    ]
+
+    list_filter = [
+        "duration",
+        "teacher",
+        "is_active",
+    ]
+
+    search_fields = [
+        "title",
+        "duration",
+        "teacher",
+    ]
+
+
 admin.site.register(User)

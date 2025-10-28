@@ -12,7 +12,7 @@ urlpatterns = [
     path("students/", views.student_list, name="student_list"),
     path("students/<int:pk>/", views.StudentDetailView.as_view(), name="student_detail"),
     # Courses
-    path("courses/", views.course_list, name="course_list"),
+    path("courses/", views.course_list, name="courses_list"),
     path("courses/<slug:slug>/", views.CourseDetailView.as_view(), name="course_detail"),
     # Feedback
     path("feedback/", views.feedback, name="feedback"),
