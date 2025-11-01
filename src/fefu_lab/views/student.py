@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from fefu_lab.forms import StudentCreationForm, StudentEnrollmentForm
+from fefu_lab.forms import StudentEnrollmentForm, StudentRegistrationForm
 from fefu_lab.models import Student
 
 
@@ -41,7 +41,7 @@ class StudentDetailView(views.View):
 
 def student_list(request: HttpRequest) -> HttpResponse:
     """Страница списка студентов."""
-    form = StudentCreationForm(request.POST or None)
+    form = StudentRegistrationForm(request.POST or None)
     if form.is_valid():
         form.save()
         messages.success(request, "Студент успешно добавлен!")

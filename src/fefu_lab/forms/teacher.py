@@ -2,32 +2,32 @@ from typing import final
 
 from django import forms
 
-from fefu_lab.models import Student
+from fefu_lab.models import Teacher
 
 
 @final
-class StudentRegistrationForm(forms.ModelForm):
+class TeacherRegistrationForm(forms.ModelForm):
     first_name = forms.CharField(
-        label="Имя студента:",
+        label="Имя:",
         required=True,
         min_length=3,
         max_length=20,
         widget=forms.TextInput(
             attrs={
-                "placeholder": "Введите имя студента",
+                "placeholder": "Введите ваше имя",
                 "class": "form-input",
             },
         ),
     )
 
     last_name = forms.CharField(
-        label="Фамилия студента:",
+        label="Фамилия:",
         required=True,
         min_length=3,
         max_length=50,
         widget=forms.TextInput(
             attrs={
-                "placeholder": "Введите фамилию студента",
+                "placeholder": "Введите вашу фамилию",
                 "class": "form-input",
             },
         ),
@@ -39,7 +39,7 @@ class StudentRegistrationForm(forms.ModelForm):
         max_length=50,
         widget=forms.TextInput(
             attrs={
-                "placeholder": "Введите почту студента",
+                "placeholder": "Введите вашу почту",
                 "class": "form-input",
             },
         ),
@@ -49,17 +49,7 @@ class StudentRegistrationForm(forms.ModelForm):
         label="День рождения:",
         widget=forms.TextInput(
             attrs={
-                "placeholder": "Введите день рождения студента",
-                "class": "form-input",
-            },
-        ),
-    )
-
-    faculty = forms.ChoiceField(
-        label="Факультет:",
-        choices=Student.FACULTY_CHOICES,
-        widget=forms.Select(
-            attrs={
+                "placeholder": "Введите ваш день рождения",
                 "class": "form-input",
             },
         ),
@@ -67,11 +57,10 @@ class StudentRegistrationForm(forms.ModelForm):
 
     @final
     class Meta:
-        model = Student
+        model = Teacher
         fields = [
             "first_name",
             "last_name",
             "email",
             "birthday",
-            "faculty",
         ]

@@ -18,4 +18,6 @@ urlpatterns = [
     path("feedback/", views.feedback, name="feedback"),
     # Registration
     path("registration/", views.registration, name="registration"),
+    path("registration/student/", views.registration_as_student, name="registration_as_student"),
+    path("registration/teacher/", views.registration_as_teacher, name="registration_as_teacher"),
 ]

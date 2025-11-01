@@ -2,12 +2,14 @@ from .course import CourseCreationForm
 from .enrollment import StudentEnrollmentForm
 from .feedback import FeedbackForm
 from .registration import RegistrationForm
-from .student import StudentCreationForm
+from .student import StudentRegistrationForm
+from .teacher import TeacherRegistrationForm
 
 __all__ = [
     "CourseCreationForm",
     "FeedbackForm",
     "RegistrationForm",
-    "StudentCreationForm",
     "StudentEnrollmentForm",
+    "StudentRegistrationForm",
+    "TeacherRegistrationForm",
 ]

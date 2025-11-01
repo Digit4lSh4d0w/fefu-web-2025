@@ -6,96 +6,18 @@ from fefu_lab.models import User
 
 
 @final
-class RegistrationForm(forms.ModelForm):
-    username = forms.CharField(
-        label="Имя пользователя:",
-        required=True,
-        min_length=4,
-        max_length=30,
-        widget=forms.TextInput(
+class RegistrationForm(forms.Form):
+    ROLE_CHOICES = {
+        "student": "Студент",
+        "teacher": "Преподаватель",
+    }
+
+    role = forms.ChoiceField(
+        label="Регистрация в качестве:",
+        choices=ROLE_CHOICES,
+        widget=forms.RadioSelect(
             attrs={
-                "placeholder": "Введите ваше имя",
                 "class": "form-input",
             },
         ),
     )
-
-    email = forms.EmailField(
-        label="Email:",
-        required=True,
-        widget=forms.EmailInput(
-            attrs={
-                "placeholder": "Введите ваш Email",
-                "class": "form-input",
-            },
-        ),
-    )
-
-    password = forms.CharField(
-        label="Пароль:",
-        required=True,
-        min_length=16,
-        max_length=128,
-        widget=forms.PasswordInput(
-            attrs={
-                "placeholder": "Придумайте пароль",
-                "class": "form-input",
-            },
-        ),
-    )
-
-    password_confirm = forms.CharField(
-        label="Подтверждение пароля:",
-        required=True,
-        min_length=16,
-        max_length=128,
-        widget=forms.PasswordInput(
-            attrs={
-                "placeholder": "Введите пароль снова",
-                "class": "form-input",
-            },
-        ),
-    )
-
-    @final
-    class Meta:
-        model = User
-        fields = ["username", "email", "password"]
-
-    def clean_username(self):
-        username = self.cleaned_data.get("username")
-        if User.objects.filter(username=username).exists():
-            self.add_error("username", "Пользователь с таким именем пользователя уже существует")
-        return username
-
-    def clean_email(self):
-        email = self.cleaned_data.get("email")
-        if User.objects.filter(email=email).exists():
-            self.add_error("email", "Пользователь с таким Email уже существует")
-        return email
-
-    def clean_password(self):
-        password = self.cleaned_data.get("password")
-        has_digit = any(ch.isdigit() for ch in password)
-        has_lower = any(ch.islower() for ch in password)
-        has_upper = any(ch.isupper() for ch in password)
-
-        if not all((has_digit, has_lower, has_upper)):
-            msg = [
-                "Пароль слишком простой.",
-                "Пароль должен содержать:",
-                "1. Хотя бы одну прописную букву.",
-                "2. Хотя бы одну заглавную букву.",
-                "3. Хотя бы одну цифру.",
-            ]
-            self.add_error("password", msg)
-
-        return password
-
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data.get("password")
-        password_confirm = cleaned_data.get("password_confirm")
-        if password != password_confirm:
-            self.add_error("password_confirm", "Пароли не совпадают")
-        return cleaned_data
