@@ -2,8 +2,6 @@ from typing import final
 
 from django import forms
 
-from fefu_lab.models import User
-
 
 @final
 class RegistrationForm(forms.Form):

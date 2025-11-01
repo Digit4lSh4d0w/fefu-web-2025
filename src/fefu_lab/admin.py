@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from fefu_lab.models import Course, Enrollment, Student, Teacher, User
+from fefu_lab.models import Course, Enrollment, Student, Teacher
 
 
 @admin.register(Student)
@@ -92,6 +92,3 @@ class EnrollmentAdmin(admin.ModelAdmin):
         "course",
         "student",
     ]
-
-
-admin.site.register(User)

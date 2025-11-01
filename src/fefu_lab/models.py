@@ -140,17 +140,3 @@ class Enrollment(AbstractModel):
 
     def __str__(self):
         return str(self.course)
-
-
-# Можно было использовать готовый класс из модуля Django.
-@final
-class User(models.Model):
-    username = models.CharField(max_length=30)
-    email = models.EmailField()
-    # Я знаю, что пароли нужно солить и хэшировать,
-    # например, с помощью pbkdf2 или argon2id.
-    password = models.CharField(max_length=128)
-
-    @override
-    def __str__(self) -> str:
-        return self.username
