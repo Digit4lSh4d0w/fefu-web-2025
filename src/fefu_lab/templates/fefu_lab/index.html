@@ -5,8 +5,8 @@
 {% block content %}
 <h1>Добро пожаловать!</h1>
 
-{% if messages %}
-  {% include 'fefu_lab/base/messages.html' with messages=messages %}
+{% if latest_students and latest_courses %}
+  {% include 'fefu_lab/base/student_enrollment_form.html' with form=studentEnrollmentForm %}
 {% endif %}
 
 {% if latest_students %}

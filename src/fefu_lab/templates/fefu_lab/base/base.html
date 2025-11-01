@@ -11,9 +11,12 @@
   <body>
     <div class="site-container">
       {% include 'fefu_lab/base/header.html' %}
-        <main id="fefu_lab">
-            {% block content %}{% endblock %}
-        </main>
+      {% if messages %}
+        {% include 'fefu_lab/base/messages.html' with messages=messages %}
+      {% endif %}
+      <main id="fefu_lab">
+          {% block content %}{% endblock %}
+      </main>
       {% include 'fefu_lab/base/footer.html' %}
     </div>
 

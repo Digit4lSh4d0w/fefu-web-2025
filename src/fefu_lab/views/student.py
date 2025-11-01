@@ -1,18 +1,42 @@
+from typing import final
+
+from django import views
 from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import redirect, render
-from django.views import generic
+from django.shortcuts import get_object_or_404, redirect, render
 
-from fefu_lab.forms import StudentCreationForm
+from fefu_lab.forms import StudentCreationForm, StudentEnrollmentForm
 from fefu_lab.models import Student
 
 
-class StudentDetailView(generic.DetailView):
+@final
+class StudentDetailView(views.View):
     """Страница детализации информации о студенте."""
 
-    model = Student
     template_name = "fefu_lab/student_details.html"
-    context_object_name = "student"
+
+    def get(self, request, pk=None):
+        student = None
+
+        if pk:
+            student = get_object_or_404(Student, pk=pk)
+
+        form = StudentEnrollmentForm(student=student)
+        return render(request, self.template_name, {"student": student, "form": form})
+
+    def post(self, request, pk=None):
+        student = None
+
+        if pk:
+            student = get_object_or_404(Student, pk=pk)
+
+        form = StudentEnrollmentForm(request.POST, student=student)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Студент успешно записан на курс!")
+            return redirect("fefu_lab:students_list")
+        return render(request, self.template_name, {"student": student, "form": form})
 
 
 def student_list(request: HttpRequest) -> HttpResponse:

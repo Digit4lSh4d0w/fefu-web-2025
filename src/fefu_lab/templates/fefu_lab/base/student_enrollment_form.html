@@ -1,0 +1,19 @@
+{% if form.errors %}
+  {% include 'fefu_lab/base/form_errors.html' with form=form %}
+{% endif %}
+
+<button onclick="toggleForm('studentEnrollmentForm')">⬇️ Зачислить студента на курс</button>
+<div id="studentEnrollmentForm" class="hidden">
+  <form method="post">
+    {% csrf_token %}
+
+    {% for field in form %}
+      <div class="form-group">
+        <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+      </div>
+    {% endfor %}
+
+    <button type="submit">Зачислить</button>
+  </form>
+</div>

@@ -4,6 +4,9 @@
 
 {% block content %}
   <h1>Студент {{ student.full_name }}</h1>
+
+  {% include 'fefu_lab/base/student_enrollment_form.html' with form=form %}
+
   <p>Имя: {{ student.first_name }}</p>
   <p>Фамилия: {{ student.last_name }}</p>
   <p>День рождения: {{ student.birthday }}</p>
