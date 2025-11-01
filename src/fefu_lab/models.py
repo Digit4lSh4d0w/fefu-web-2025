@@ -4,7 +4,27 @@ from django.db import models
 from django.urls import reverse
 
 
-class AbstractUser(models.Model):
+class AbstractModel(models.Model):
+    """Абстрактная модель.
+
+    Класс, содержащий часто используемые поля и методы.
+    """
+
+    is_active = models.BooleanField(default=True, verbose_name="Активен")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
+
+    class Meta:
+        abstract = True
+
+    @property
+    def is_active_display(self):
+        if self.is_active:
+            return "Да"
+        return "Нет"
+
+
+class AbstractUser(AbstractModel):
     """Абстрактный пользователь.
 
     Класс абстрактного пользователя для определения конечных классов
@@ -15,9 +35,6 @@ class AbstractUser(models.Model):
     last_name = models.CharField(max_length=50, verbose_name="Фамилия")
     email = models.EmailField(max_length=50, unique=True, verbose_name="Email")
     birthday = models.DateField(null=True, blank=True, verbose_name="Дата рождения")
-    is_active = models.BooleanField(default=True, verbose_name="Активен")
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
 
     class Meta:
         abstract = True
@@ -29,12 +46,6 @@ class AbstractUser(models.Model):
     @property
     def full_name(self):
         return str(self)
-
-    @property
-    def is_active_display(self):
-        if self.is_active:
-            return "Да"
-        return "Нет"
 
 
 @final
@@ -77,7 +88,7 @@ class Teacher(AbstractUser):
 
 
 @final
-class Course(models.Model):
+class Course(AbstractModel):
     title = models.CharField(max_length=200, unique=True, verbose_name="Название")
     slug = models.SlugField(max_length=200, unique=True, verbose_name="Машиночитаемое название")
     description = models.CharField(max_length=1500, verbose_name="Описание")
@@ -89,9 +100,6 @@ class Course(models.Model):
         on_delete=models.SET_NULL,
         verbose_name="Преподаватель",
     )
-    is_active = models.BooleanField(default=True, verbose_name="Активен")
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
 
     @final
     class Meta:
@@ -109,15 +117,9 @@ class Course(models.Model):
             return str(self.teacher)
         return "Преподаватель не назначен"
 
-    @property
-    def is_active_display(self):
-        if self.is_active:
-            return "Да"
-        return "Нет"
-
 
 @final
-class Enrollment(models.Model):
+class Enrollment(AbstractModel):
     student = models.ForeignKey(
         Student,
         on_delete=models.CASCADE,
@@ -128,9 +130,6 @@ class Enrollment(models.Model):
         on_delete=models.CASCADE,
         verbose_name="Курс",
     )
-    is_active = models.BooleanField(default=True, verbose_name="Активен")
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
 
     @final
     class Meta:
@@ -141,12 +140,6 @@ class Enrollment(models.Model):
 
     def __str__(self):
         return str(self.course)
-
-    @property
-    def is_active_display(self):
-        if self.is_active:
-            return "Да"
-        return "Нет"
 
 
 # Можно было использовать готовый класс из модуля Django.
