@@ -1,18 +1,18 @@
 <table>
   <colgroup>
-    <col style="width: 10%;">
-    <col style="width: 50%;">
-    <col style="width: 40%;">
+    <col style="width: 15%;">
+    <col style="width: 15%;">
+    <col style="width: 70%;">
   </colgroup>
   <tr>
-    <th>ID</th>
+    <th>Фамилия</th>
     <th>Имя</th>
     <th>Факультет</th>
   </tr>
   {% for s in students %}
     <tr>
-      <td>{{ s.id }}</td>
-      <td><a href="{% url 'fefu_lab:student_detail' s.id %}">{{ s.full_name }}</a></td>
+      <td><a href="{% url 'fefu_lab:student_detail' s.id %}">{{ s.last_name }}</a></td>
+      <td><a href="{% url 'fefu_lab:student_detail' s.id %}">{{ s.first_name }}</a></td>
       <td>{{ s.get_faculty_display_name }}</td>
     </tr>
   {% endfor %}
