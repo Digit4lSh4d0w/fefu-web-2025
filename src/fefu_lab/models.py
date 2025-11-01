@@ -30,6 +30,12 @@ class AbstractUser(models.Model):
     def full_name(self):
         return str(self)
 
+    @property
+    def is_active_display(self):
+        if self.is_active:
+            return "Да"
+        return "Нет"
+
 
 @final
 class Student(AbstractUser):
@@ -57,7 +63,7 @@ class Student(AbstractUser):
     def get_absolute_url(self):
         return reverse("student_detail", kwargs={"pk": self.pk})
 
-    def get_faculty_display_name(self):
+    def faculty_display(self):
         return self.FACULTY_CHOICES.get(self.faculty, "Неизвестно")
 
 
@@ -97,6 +103,18 @@ class Course(models.Model):
     def __str__(self):
         return self.title
 
+    @property
+    def teacher_display(self):
+        if self.teacher:
+            return str(self.teacher)
+        return "Преподаватель не назначен"
+
+    @property
+    def is_active_display(self):
+        if self.is_active:
+            return "Да"
+        return "Нет"
+
 
 @final
 class Enrollment(models.Model):
@@ -123,6 +141,12 @@ class Enrollment(models.Model):
 
     def __str__(self):
         return str(self.course)
+
+    @property
+    def is_active_display(self):
+        if self.is_active:
+            return "Да"
+        return "Нет"
 
 
 # Можно было использовать готовый класс из модуля Django.

@@ -7,7 +7,7 @@
   <p>Идентификатор: {{ course.slug }}</p>
   <p>Описание: {{ course.description }}</p>
   <p>Продолжительность: {{ course.duration }} минут</p>
-  <p>Преподаватель: {{ course.teacher }}</p>
-  <p>Активен: {{ course.is_active }}</p>
+  <p>Преподаватель: {{ course.teacher_display }}</p>
+  <p>Активен: {{ course.is_active_display }}</p>
   <p>Дата создания: {{ course.created_at }}</p>
 {% endblock %}

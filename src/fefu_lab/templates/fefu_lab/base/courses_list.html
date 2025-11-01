@@ -12,7 +12,7 @@
   {% for c in courses %}
     <tr>
       <td><a href="{% url 'fefu_lab:course_detail' c.slug %}">{{ c.title }}</a></td>
-      <td>{{ c.teacher }}</td>
+      <td>{{ c.teacher_display }}</td>
       <td>{{ c.created_at }}</td>
     </tr>
   {% endfor %}
