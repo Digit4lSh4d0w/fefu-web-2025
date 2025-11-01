@@ -4,11 +4,10 @@
 
 {% block content %}
   {% if students %}
-    <h2>Список всех студентов</h2>
-    {% include 'fefu_lab/base/student_creation_form.html' with form=form %}
+    <h1>Список всех студентов</h1>
     {% include 'fefu_lab/base/students_list.html' with students=students %}
   {% else %}
-    <h2>Студентов пока нет</h2>
+    <h1>Студентов пока нет</h1>
     {% include 'fefu_lab/base/student_creation_form.html' with form=form %}
   {% endif %}
 {% endblock %}

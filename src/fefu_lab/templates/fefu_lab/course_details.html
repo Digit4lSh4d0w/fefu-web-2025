@@ -4,6 +4,9 @@
 
 {% block content %}
   <h1>Курс "{{ course.title|lower }}"</h1>
+
+  {% include 'fefu_lab/base/student_enrollment_form.html' with form=form %}
+
   <p>Идентификатор: {{ course.slug }}</p>
   <p>Описание: {{ course.description }}</p>
   <p>Продолжительность: {{ course.duration }} минут</p>

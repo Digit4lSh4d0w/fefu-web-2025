@@ -4,11 +4,11 @@
 
 {% block content %}
   {% if courses %}
-    <h2>Список всех курсов</h2>
+    <h1>Список всех курсов</h1>
     {% include 'fefu_lab/base/course_creation_form.html' with form=form %}
     {% include 'fefu_lab/base/courses_list.html' with courses=courses %}
   {% else %}
-    <h2>Курсов пока нет</h2>
+    <h1>Курсов пока нет</h1>
     {% include 'fefu_lab/base/course_creation_form.html' with form=form %}
   {% endif %}
 {% endblock %}

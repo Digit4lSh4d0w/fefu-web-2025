@@ -39,8 +39,15 @@ class StudentEnrollmentForm(forms.ModelForm):
             "course",
         ]
 
-    def __init__(self, *args, student: Student | None = None, **kwargs):
+    def __init__(
+        self,
+        *args,
+        student: Student | None = None,
+        course: Course | None = None,
+        **kwargs,
+    ):
         super().__init__(*args, **kwargs)
+
         if student:
             self.fields["student"].initial = student
             self.fields["student"].queryset = Student.objects.filter(pk=student.pk)
@@ -50,14 +57,26 @@ class StudentEnrollmentForm(forms.ModelForm):
             self.fields["student"].queryset = Student.objects.all()
             self.fields["student"].disabled = False
 
+        if course:
+            self.fields["course"].initial = course
+            self.fields["course"].queryset = Course.objects.filter(pk=course.pk)
+            self.fields["course"].disabled = True
+        else:
+            self.fields["course"].initial = Course.objects.all()[0]
+            self.fields["course"].queryset = Course.objects.all()
+            self.fields["course"].disabled = False
+
     def clean(self):
         cleaned_data = super().clean()
 
         student = cleaned_data.get("student")
         course = cleaned_data.get("course")
 
-        if student and course:
-            if Enrollment.objects.filter(student=student, course=course, is_active=True).exists():
-                self.add_error("course", "Студент уже зачислен на курс")
+        if (
+            student
+            and course
+            and Enrollment.objects.filter(student=student, course=course, is_active=True).exists()
+        ):
+            self.add_error("course", "Студент уже зачислен на курс")
 
         return cleaned_data
