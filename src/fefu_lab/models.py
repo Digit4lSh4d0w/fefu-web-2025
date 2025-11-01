@@ -39,6 +39,7 @@ class AbstractUser(AbstractModel):
     class Meta:
         abstract = True
         ordering = ["last_name", "first_name"]
+        unique_together = ["first_name", "last_name", "birthday"]
 
     def __str__(self):
         return f"{self.last_name} {self.first_name}"
@@ -69,6 +70,7 @@ class Student(AbstractUser):
     class Meta:
         verbose_name = "Студент"
         verbose_name_plural = "Студенты"
+        unique_together = ["first_name", "last_name", "birthday", "faculty"]
         db_table = "students"
 
     def get_absolute_url(self):
@@ -84,6 +86,7 @@ class Teacher(AbstractUser):
     class Meta:
         verbose_name = "Преподаватель"
         verbose_name_plural = "Преподаватели"
+        unique_together = ["first_name", "last_name", "birthday"]
         db_table = "teachers"
 
 
