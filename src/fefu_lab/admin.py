@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from fefu_lab.models import Course, Student, Teacher, User
+from fefu_lab.models import Course, Enrollment, Student, Teacher, User
 
 
 @admin.register(Student)
@@ -34,12 +34,13 @@ class TeacherAdmin(admin.ModelAdmin):
         "first_name",
         "email",
         "birthday",
-        "faculty",
         "is_active",
     ]
 
     list_filter = [
-        "faculty",
+        "last_name",
+        "first_name",
+        "email",
         "is_active",
     ]
 
@@ -47,7 +48,6 @@ class TeacherAdmin(admin.ModelAdmin):
         "first_name",
         "last_name",
         "email",
-        "faculty",
     ]
 
 
@@ -70,6 +70,27 @@ class CourseAdmin(admin.ModelAdmin):
         "title",
         "duration",
         "teacher",
+    ]
+
+
+@admin.register(Enrollment)
+class EnrollmentAdmin(admin.ModelAdmin):
+    list_display = [
+        "course",
+        "student",
+        "is_active",
+        "created_at",
+    ]
+
+    list_filter = [
+        "course",
+        "is_active",
+        "student",
+    ]
+
+    search_fields = [
+        "course",
+        "student",
     ]
 
 

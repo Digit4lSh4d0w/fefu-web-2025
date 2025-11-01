@@ -5,7 +5,8 @@ from django.urls import reverse
 
 
 class AbstractUser(models.Model):
-    """
+    """Абстрактный пользователь.
+
     Класс абстрактного пользователя для определения конечных классов
     студента и преподавателя без повторения одних и тех же полей.
     """
@@ -62,21 +63,6 @@ class Student(AbstractUser):
 
 @final
 class Teacher(AbstractUser):
-    FACULTY_CHOICES = {
-        "CS": "Кибербезопасность",
-        "SE": "Программная инженерия",
-        "IT": "Информационные технологии",
-        "DS": "Наука о данных",
-        "WEB": "Веб-технологии",
-    }
-
-    faculty = models.CharField(
-        max_length=4,
-        choices=FACULTY_CHOICES,
-        default="CS",
-        verbose_name="Факультет",
-    )
-
     @final
     class Meta:
         verbose_name = "Преподаватель"
@@ -110,6 +96,33 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
+
+
+@final
+class Enrollment(models.Model):
+    student = models.ForeignKey(
+        Student,
+        on_delete=models.CASCADE,
+        verbose_name="Студент",
+    )
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+        verbose_name="Курс",
+    )
+    is_active = models.BooleanField(default=True, verbose_name="Активен")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
+
+    @final
+    class Meta:
+        verbose_name = "Зачисление"
+        verbose_name_plural = "Зачисления"
+        ordering = ["course", "is_active", "student"]
+        db_table = "enrollments"
+
+    def __str__(self):
+        return str(self.course)
 
 
 # Можно было использовать готовый класс из модуля Django.
