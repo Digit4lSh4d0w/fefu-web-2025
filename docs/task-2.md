@@ -40,12 +40,12 @@
 <details>
   <summary>Скриншоты</summary>
   <h4>Форма обратной связи</h4>
-  <a href="assets/task-2/feedback-form.webp">
-    <img src="assets/task-2/feedback-form.webp" width="600"/>
+  <a href="../assets/task-2/feedback-form.webp">
+    <img src="../assets/task-2/feedback-form.webp" width="600"/>
   </a>
   <h4>Форма регистрации</h4>
-  <a href="assets/task-2/registration-form.webp">
-    <img src="assets/task-2/registration-form.webp" width="600"/>
+  <a href="../assets/task-2/registration-form.webp">
+    <img src="../assets/task-2/registration-form.webp" width="600"/>
   </a>
 </details>
 
@@ -60,16 +60,16 @@
 <details>
   <summary>Скриншоты</summary>
   <h4>Оригинальный CSRF токен</h4>
-  <a href="assets/task-2/devtools-csrf-showup.webp">
-    <img src="assets/task-2/devtools-csrf-showup.webp" width="600"/>
+  <a href="../assets/task-2/devtools-csrf-showup.webp">
+    <img src="../assets/task-2/devtools-csrf-showup.webp" width="600"/>
   </a>
   <h4>Измененный CSRF токен</h4>
-  <a href="assets/task-2/devtools-csrf-invalid-payload-showup.webp">
-    <img src="assets/task-2/devtools-csrf-invalid-payload-showup.webp" width="600"/>
+  <a href="../assets/task-2/devtools-csrf-invalid-payload-showup.webp">
+    <img src="../assets/task-2/devtools-csrf-invalid-payload-showup.webp" width="600"/>
   </a>
   <h4>Ошибка валидации длины CSRF токена</h4>
-  <a href="assets/task-2/csrf-length-mismatch.webp">
-    <img src="assets/task-2/csrf-length-mismatch.webp" width="600"/>
+  <a href="../assets/task-2/csrf-length-mismatch.webp">
+    <img src="../assets/task-2/csrf-length-mismatch.webp" width="600"/>
   </a>
 </details>
 
@@ -79,8 +79,8 @@
 <details>
   <summary>Скриншоты</summary>
   <h4>Ошибка валидации CSRF токена</h4>
-  <a href="assets/task-2/csrf-incorrect-token.webp">
-    <img src="assets/task-2/csrf-incorrect-token.webp" width="600"/>
+  <a href="../assets/task-2/csrf-incorrect-token.webp">
+    <img src="../assets/task-2/csrf-incorrect-token.webp" width="600"/>
   </a>
 </details>
 
@@ -136,8 +136,8 @@ def clean(self):
 <details>
   <summary>Скриншоты</summary>
   <h4>Сообщение об ошибках</h4>
-  <a href="assets/task-2/incorrect-form-data.webp">
-    <img src="assets/task-2/incorrect-form-data.webp" width="600"/>
+  <a href="../assets/task-2/incorrect-form-data.webp">
+    <img src="../assets/task-2/incorrect-form-data.webp" width="600"/>
   </a>
 </details>
 
@@ -148,8 +148,8 @@ def clean(self):
 <details>
   <summary>Скриншоты</summary>
   <h4>Сообщение об успехе</h4>
-  <a href="assets/task-2/success-message.webp">
-    <img src="assets/task-2/success-message.webp" width="600"/>
+  <a href="../assets/task-2/success-message.webp">
+    <img src="../assets/task-2/success-message.webp" width="600"/>
   </a>
 </details>
 

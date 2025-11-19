@@ -293,35 +293,35 @@ form.add_error("role", "Выбрана некорректная роль")
 <details>
   <summary>Скриншоты</summary>
   <h4>Главная страница</h4>
-  <a href="assets/task-3/index.webp">
-    <img src="assets/task-3/index.webp" width="600"/>
+  <a href="../assets/task-3/index.webp">
+    <img src="../assets/task-3/index.webp" width="600"/>
   </a>
   <h4>Регистрация</h4>
-  <a href="assets/task-3/registration.webp">
-    <img src="assets/task-3/registration.webp" width="600"/>
+  <a href="../assets/task-3/registration.webp">
+    <img src="../assets/task-3/registration.webp" width="600"/>
   </a>
   <h4>Регистрация как студент</h4>
-  <a href="assets/task-3/registration-as-student.webp">
-    <img src="assets/task-3/registration-as-student.webp" width="600"/>
+  <a href="../assets/task-3/registration-as-student.webp">
+    <img src="../assets/task-3/registration-as-student.webp" width="600"/>
   </a>
   <h4>Список курсов</h4>
-  <a href="assets/task-3/course-list.webp">
-    <img src="assets/task-3/course-list.webp" width="600"/>
+  <a href="../assets/task-3/course-list.webp">
+    <img src="../assets/task-3/course-list.webp" width="600"/>
   </a>
   <h4>Подробности о курсе</h4>
-  <a href="assets/task-3/course-details.webp">
-    <img src="assets/task-3/course-details.webp" width="600"/>
+  <a href="../assets/task-3/course-details.webp">
+    <img src="../assets/task-3/course-details.webp" width="600"/>
   </a>
   <h4>Подробности о студенте</h4>
-  <a href="assets/task-3/student-details.webp">
-    <img src="assets/task-3/student-details.webp" width="600"/>
+  <a href="../assets/task-3/student-details.webp">
+    <img src="../assets/task-3/student-details.webp" width="600"/>
   </a>
   <h4>Django Admin - таблицы</h4>
-  <a href="assets/task-3/django-admin-tables.webp">
-    <img src="assets/task-3/django-admin-tables.webp" width="600"/>
+  <a href="../assets/task-3/django-admin-tables.webp">
+    <img src="../assets/task-3/django-admin-tables.webp" width="600"/>
   </a>
   <h4>Django Admin - список студентов</h4>
-  <a href="assets/task-3/django-admin-students.webp">
-    <img src="assets/task-3/django-admin-students.webp" width="600"/>
+  <a href="../assets/task-3/django-admin-students.webp">
+    <img src="../assets/task-3/django-admin-students.webp" width="600"/>
   </a>
 </details>
