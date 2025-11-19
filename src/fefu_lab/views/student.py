@@ -6,7 +6,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from fefu_lab.forms import StudentEnrollmentForm, StudentRegistrationForm
-from fefu_lab.models import Student
+from fefu_lab.models import StudentProfile
 
 
 @final
@@ -19,7 +19,7 @@ class StudentDetailView(views.View):
         student = None
 
         if pk:
-            student = get_object_or_404(Student, pk=pk)
+            student = get_object_or_404(StudentProfile, pk=pk)
 
         form = StudentEnrollmentForm(student=student)
         return render(request, self.template_name, {"student": student, "form": form})
@@ -28,7 +28,7 @@ class StudentDetailView(views.View):
         student = None
 
         if pk:
-            student = get_object_or_404(Student, pk=pk)
+            student = get_object_or_404(StudentProfile, pk=pk)
 
         form = StudentEnrollmentForm(request.POST, student=student)
 
@@ -47,5 +47,7 @@ def student_list(request: HttpRequest) -> HttpResponse:
         messages.success(request, "Студент успешно добавлен!")
         return redirect("fefu_lab:students_list")
 
-    students = Student.objects.filter(is_active=True)[:5]
-    return render(request, "fefu_lab/students_list.html", {"students": students, "form": form})
+    students = StudentProfile.objects.filter(is_active=True)[:5]
+    return render(
+        request, "fefu_lab/students_list.html", {"students": students, "form": form}
+    )

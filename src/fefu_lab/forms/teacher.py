@@ -2,7 +2,7 @@ from typing import final
 
 from django import forms
 
-from fefu_lab.models import Teacher
+from fefu_lab.models import TeacherProfile
 
 
 @final
@@ -57,7 +57,7 @@ class TeacherRegistrationForm(forms.ModelForm):
 
     @final
     class Meta:
-        model = Teacher
+        model = TeacherProfile
         fields = [
             "first_name",
             "last_name",

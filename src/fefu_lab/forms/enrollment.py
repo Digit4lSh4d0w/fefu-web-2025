@@ -2,16 +2,15 @@ from typing import final
 
 from django import forms
 
-from fefu_lab.models import Course, Enrollment, Student
+from fefu_lab.models import Course, Enrollment, StudentProfile
 
 
 @final
 class StudentEnrollmentForm(forms.ModelForm):
     student = forms.ModelChoiceField(
-        queryset=Student.objects.all(),
+        queryset=StudentProfile.objects.all(),
         label="Студент:",
         required=True,
-        initial=Student.objects.all()[0],
         widget=forms.Select(
             attrs={
                 "class": "form-input",
@@ -23,7 +22,6 @@ class StudentEnrollmentForm(forms.ModelForm):
         queryset=Course.objects.all(),
         label="Курс:",
         required=True,
-        initial=Course.objects.all()[0],
         widget=forms.Select(
             attrs={
                 "class": "form-input",
@@ -42,7 +40,7 @@ class StudentEnrollmentForm(forms.ModelForm):
     def __init__(
         self,
         *args,
-        student: Student | None = None,
+        student: StudentProfile | None = None,
         course: Course | None = None,
         **kwargs,
     ):
@@ -50,11 +48,13 @@ class StudentEnrollmentForm(forms.ModelForm):
 
         if student:
             self.fields["student"].initial = student
-            self.fields["student"].queryset = Student.objects.filter(pk=student.pk)
+            self.fields["student"].queryset = StudentProfile.objects.filter(
+                pk=student.pk
+            )
             self.fields["student"].disabled = True
         else:
-            self.fields["student"].initial = Student.objects.all()[0]
-            self.fields["student"].queryset = Student.objects.all()
+            self.fields["student"].initial = StudentProfile.objects.first()
+            self.fields["student"].queryset = StudentProfile.objects.all()
             self.fields["student"].disabled = False
 
         if course:
@@ -62,7 +62,7 @@ class StudentEnrollmentForm(forms.ModelForm):
             self.fields["course"].queryset = Course.objects.filter(pk=course.pk)
             self.fields["course"].disabled = True
         else:
-            self.fields["course"].initial = Course.objects.all()[0]
+            self.fields["course"].initial = Course.objects.first()
             self.fields["course"].queryset = Course.objects.all()
             self.fields["course"].disabled = False
 
@@ -75,7 +75,9 @@ class StudentEnrollmentForm(forms.ModelForm):
         if (
             student
             and course
-            and Enrollment.objects.filter(student=student, course=course, is_active=True).exists()
+            and Enrollment.objects.filter(
+                student=student, course=course, is_active=True
+            ).exists()
         ):
             self.add_error("course", "Студент уже зачислен на курс")
 
