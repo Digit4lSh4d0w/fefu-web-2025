@@ -23,6 +23,5 @@ handler404 = "fefu_lab.views.custom_404"
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("polls/", include("polls.urls")),
     path("", include("fefu_lab.urls")),
 ]
