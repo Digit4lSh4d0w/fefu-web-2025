@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from fefu_lab.models import Course, Enrollment, Student, Teacher
+from fefu_lab.models import Course, Enrollment, StudentProfile, TeacherProfile
 
 
-@admin.register(Student)
+@admin.register(StudentProfile)
 class StudentAdmin(admin.ModelAdmin):
     list_display = [
         "last_name",
@@ -27,7 +27,7 @@ class StudentAdmin(admin.ModelAdmin):
     ]
 
 
-@admin.register(Teacher)
+@admin.register(TeacherProfile)
 class TeacherAdmin(admin.ModelAdmin):
     list_display = [
         "last_name",

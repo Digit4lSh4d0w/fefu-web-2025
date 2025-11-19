@@ -2,7 +2,7 @@ from typing import final
 
 from django import forms
 
-from fefu_lab.models import Student
+from fefu_lab.models import StudentProfile
 
 
 @final
@@ -57,7 +57,7 @@ class StudentRegistrationForm(forms.ModelForm):
 
     faculty = forms.ChoiceField(
         label="Факультет:",
-        choices=Student.FACULTY_CHOICES,
+        choices=StudentProfile.FACULTY_CHOICES,
         widget=forms.Select(
             attrs={
                 "class": "form-input",
@@ -67,7 +67,7 @@ class StudentRegistrationForm(forms.ModelForm):
 
     @final
     class Meta:
-        model = Student
+        model = StudentProfile
         fields = [
             "first_name",
             "last_name",
