@@ -1,0 +1,71 @@
+{% extends 'fefu_lab/base/base.html' %}
+{% load static %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<h1>Регистрация</h1>
+
+{% if form.errors %}
+  {% include 'fefu_lab/base/form_errors.html' with form=form %}
+{% endif %}
+
+<div id="registrationForm" class="form-container">
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="form-group">
+      {{ form.username.label_tag }}
+      {{ form.username }}
+    </div>
+
+    <div class="form-group">
+      {{ form.email.label_tag }}
+      {{ form.email }}
+    </div>
+
+    <div class="form-group">
+      {{ form.first_name.label_tag }}
+      {{ form.first_name }}
+    </div>
+
+    <div class="form-group">
+      {{ form.last_name.label_tag }}
+      {{ form.last_name }}
+    </div>
+
+    <div class="form-group">
+      {{ form.password1.label_tag }}
+      {{ form.password1 }}
+    </div>
+
+    <div class="form-group">
+      {{ form.password2.label_tag }}
+      {{ form.password2 }}
+    </div>
+
+    <div class="form-group">
+      {{ form.birthday.label_tag }}
+      {{ form.birthday }}
+    </div>
+
+    <div class="form-group">
+      {{ form.role.label_tag }}
+      {{ form.role }}
+    </div>
+
+    <div id="student-fields" style="display: none;">
+      <div class="form-group">
+        {{ form.faculty.label_tag }}
+        {{ form.faculty }}
+      </div>
+    </div>
+
+    <button type="submit">Зарегистрироваться</button>
+  </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'fefu_lab/registration.js' %}"></script>
+{% endblock %}

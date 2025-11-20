@@ -7,8 +7,8 @@
 
   {% include 'fefu_lab/base/student_enrollment_form.html' with form=form %}
 
-  <p>Имя: {{ student.first_name }}</p>
-  <p>Фамилия: {{ student.last_name }}</p>
+  <p>Имя: {{ student.first_name_display }}</p>
+  <p>Фамилия: {{ student.last_name_display }}</p>
   <p>День рождения: {{ student.birthday }}</p>
   <p>Факультет: {{ student.faculty_display }}</p>
   <p>Активен: {{ student.is_active_display }}</p>
