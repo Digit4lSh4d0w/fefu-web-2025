@@ -1,6 +1,7 @@
 from typing import final
 
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import generic
@@ -13,7 +14,7 @@ from fefu_lab.models import Course
 class CourseDetailView(generic.View):
     """Страница детализации информации о курсе."""
 
-    template_name = "fefu_lab/course_details.html"
+    template_name = "fefu_lab/course/details.html"
 
     def get(self, request, slug=None):
         course = None
@@ -39,13 +40,22 @@ class CourseDetailView(generic.View):
         return render(request, self.template_name, {"course": course, "form": form})
 
 
-def course_list(request: HttpRequest) -> HttpResponse:
-    """Страница списка курсов."""
+@login_required
+@permission_required("fefu_lab.add_course")
+def course_create(request: HttpRequest) -> HttpResponse:
+    """Страница создания курса."""
     form = CourseCreationForm(request.POST or None)
     if form.is_valid():
         form.save()
         messages.success(request, "Курс успешно добавлен!")
-        return redirect("fefu_lab:courses_list")
+        return redirect("fefu_lab:course_create")
 
+    return render(request, "fefu_lab/course/create.html", {"form": form})
+
+
+@login_required
+@permission_required("fefu_lab.view_course")
+def course_list(request: HttpRequest) -> HttpResponse:
+    """Страница списка курсов."""
     courses = Course.objects.order_by("-created_at")
-    return render(request, "fefu_lab/courses_list.html", {"courses": courses, "form": form})
+    return render(request, "fefu_lab/course/list.html", {"courses": courses})

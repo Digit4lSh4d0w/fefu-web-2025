@@ -7,8 +7,10 @@ from django.shortcuts import render
 
 @final
 class ProfileView(LoginRequiredMixin, views.View):
-    template_name = "fefu_lab/profile.html"
     login_url = "fefu_lab:login"
 
     def get(self, request):
-        return render(request, self.template_name)
+        return render(request, "fefu_lab/profile.html")
+
+    def get_template_name(self):
+        return "fefu_lab/profile/student.html"

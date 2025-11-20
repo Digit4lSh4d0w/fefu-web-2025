@@ -33,6 +33,7 @@ urlpatterns = [
     path("student/<int:pk>/", views.StudentDetailView.as_view(), name="student_detail"),
     # Courses
     path("courses/", views.course_list, name="courses_list"),
+    path("course/create/", views.course_create, name="course_create"),
     path("course/<slug:slug>/", views.CourseDetailView.as_view(), name="course_detail"),
     # Feedback
     path("feedback/", views.feedback, name="feedback"),

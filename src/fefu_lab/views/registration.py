@@ -33,8 +33,15 @@ def registration(request: HttpRequest) -> HttpResponse:
             )
             teachers_group, _ = Group.objects.get_or_create(name="Преподаватели")
 
-            permission = Permission.objects.get(codename="add_course")
-            teachers_group.permissions.add(permission)
+            codenames = [
+                "view_course",
+                "add_course",
+                "change_course",
+                "view_enrollment",
+            ]
+            for codename in codenames:
+                permission = Permission.objects.get(codename=codename)
+                teachers_group.permissions.add(permission)
 
             user.groups.add(teachers_group)
 
