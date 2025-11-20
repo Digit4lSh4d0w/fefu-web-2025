@@ -14,7 +14,9 @@ class CustomAbstractModel(models.Model):
     is_active = models.BooleanField(default=True, verbose_name="Активен")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
-    deleted_at = models.DateTimeField(blank=True, verbose_name="Дата удаления")
+    deleted_at = models.DateTimeField(
+        null=True, blank=True, verbose_name="Дата удаления"
+    )
 
     class Meta:
         abstract = True
@@ -33,21 +35,28 @@ class CustomAbstractUser(CustomAbstractModel):
     студента и преподавателя без повторения одних и тех же полей.
     """
 
-    first_name = models.CharField(max_length=20, verbose_name="Имя")
-    last_name = models.CharField(max_length=50, verbose_name="Фамилия")
-    email = models.EmailField(max_length=50, unique=True, verbose_name="Email")
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, verbose_name="Пользователь"
+    )
     birthday = models.DateField(null=True, blank=True, verbose_name="Дата рождения")
 
     class Meta:
         abstract = True
-        ordering = ["last_name", "first_name"]
-
-    def __str__(self):
-        return f"{self.last_name} {self.first_name}"
 
     @property
-    def full_name(self):
-        return str(self)
+    def first_name_display(self) -> str:
+        return self.user.first_name
+
+    @property
+    def last_name_display(self) -> str:
+        return self.user.last_name
+
+    @property
+    def full_name_display(self):
+        return f"{self.last_name_display} {self.first_name_display}"
+
+    def __str__(self):
+        return self.full_name_display
 
 
 @final
@@ -60,7 +69,6 @@ class StudentProfile(CustomAbstractUser):
         "WEB": "Веб-технологии",
     }
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
     faculty = models.CharField(
         max_length=4,
         choices=FACULTY_CHOICES,
@@ -83,8 +91,6 @@ class StudentProfile(CustomAbstractUser):
 
 @final
 class TeacherProfile(CustomAbstractUser):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
     @final
     class Meta:
         verbose_name = "Преподаватель"

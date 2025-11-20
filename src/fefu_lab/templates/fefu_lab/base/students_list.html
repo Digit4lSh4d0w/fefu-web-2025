@@ -11,8 +11,8 @@
   </tr>
   {% for s in students %}
     <tr>
-      <td><a href="{% url 'fefu_lab:student_detail' s.id %}">{{ s.last_name }}</a></td>
-      <td><a href="{% url 'fefu_lab:student_detail' s.id %}">{{ s.first_name }}</a></td>
+      <td><a href="{% url 'fefu_lab:student_detail' s.id %}">{{ s.last_name_display }}</a></td>
+      <td><a href="{% url 'fefu_lab:student_detail' s.id %}">{{ s.first_name_display }}</a></td>
       <td>{{ s.faculty_display }}</td>
     </tr>
   {% endfor %}

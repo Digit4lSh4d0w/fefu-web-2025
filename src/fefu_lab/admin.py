@@ -6,23 +6,22 @@ from fefu_lab.models import Course, Enrollment, StudentProfile, TeacherProfile
 @admin.register(StudentProfile)
 class StudentAdmin(admin.ModelAdmin):
     list_display = [
-        "last_name",
-        "first_name",
-        "email",
-        "birthday",
+        "user",
         "faculty",
         "is_active",
+        "created_at",
+        "updated_at",
+        "deleted_at",
     ]
 
     list_filter = [
+        "user",
         "faculty",
         "is_active",
     ]
 
     search_fields = [
-        "first_name",
-        "last_name",
-        "email",
+        "user",
         "faculty",
     ]
 
@@ -30,24 +29,20 @@ class StudentAdmin(admin.ModelAdmin):
 @admin.register(TeacherProfile)
 class TeacherAdmin(admin.ModelAdmin):
     list_display = [
-        "last_name",
-        "first_name",
-        "email",
-        "birthday",
+        "user",
         "is_active",
+        "created_at",
+        "updated_at",
+        "deleted_at",
     ]
 
     list_filter = [
-        "last_name",
-        "first_name",
-        "email",
+        "user",
         "is_active",
     ]
 
     search_fields = [
-        "first_name",
-        "last_name",
-        "email",
+        "user",
     ]
 
 
