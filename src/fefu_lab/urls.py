@@ -1,5 +1,5 @@
-from django.contrib.auth.views import LoginView, LogoutView
-from django.urls import path
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
+from django.urls import path, reverse_lazy
 
 from fefu_lab import views
 
@@ -18,6 +18,14 @@ urlpatterns = [
     path("registration/", views.registration, name="registration"),
     # Profile
     path("profile/", views.ProfileView.as_view(), name="profile"),
+    path(
+        "profile/password_change",
+        PasswordChangeView.as_view(
+            template_name="fefu_lab/auth/password_change.html",
+            success_url=reverse_lazy("fefu_lab:profile"),
+        ),
+        name="password_change",
+    ),
     # About
     path("about/", views.AboutView.as_view(), name="about"),
     # Students

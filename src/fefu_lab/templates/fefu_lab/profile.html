@@ -8,6 +8,8 @@
 <p>Фамилия: {{ user.last_name }}</p>
 <p>Email: {{ user.email }}</p>
 
+<a href="{% url 'fefu_lab:password_change' %}">Смена пароля</a>
+
 <form method="post" action="{% url 'fefu_lab:logout' %}">
   {% csrf_token %}
   <button type="submit">Выход</button>
