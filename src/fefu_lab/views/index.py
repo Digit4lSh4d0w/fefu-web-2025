@@ -33,11 +33,8 @@ class IndexView(views.View):
         form = StudentEnrollmentForm(request.POST or None)
 
         if form.is_valid():
-            enrollment = form.save()
-            messages.success(
-                request,
-                f"Студент {enrollment.student.full_name} успешно записан на курс!",
-            )
+            form.save()
+            messages.success(request, "Студент успешно записан на курс!")
             return redirect("fefu_lab:index")
 
         latest_students = StudentProfile.objects.filter(is_active=True)[:5]

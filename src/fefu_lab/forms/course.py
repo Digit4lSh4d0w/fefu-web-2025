@@ -60,17 +60,6 @@ class CourseCreationForm(forms.ModelForm):
         ),
     )
 
-    teacher = forms.ModelChoiceField(
-        queryset=TeacherProfile.objects.all(),
-        label="Преподаватель:",
-        required=True,
-        widget=forms.Select(
-            attrs={
-                "class": "form-input",
-            },
-        ),
-    )
-
     @final
     class Meta:
         model = Course
@@ -79,5 +68,4 @@ class CourseCreationForm(forms.ModelForm):
             "slug",
             "description",
             "duration",
-            "teacher",
         ]

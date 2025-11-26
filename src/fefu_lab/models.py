@@ -155,3 +155,30 @@ class Enrollment(CustomAbstractModel):
 
     def __str__(self):
         return str(self.course)
+
+
+def get_user_role(user):
+    """Возвращает роль пользователя по активному профилю."""
+    try:
+        if user.studentprofile.is_active:
+            return "student"
+    except StudentProfile.DoesNotExist:
+        pass
+
+    try:
+        if user.teacherprofile.is_active:
+            return "teacher"
+    except TeacherProfile.DoesNotExist:
+        pass
+
+    return None
+
+
+def get_user_profile(user):
+    """Возвращает активный профиль пользователя по роли."""
+    role = get_user_role(user)
+    if role == "student":
+        return user.studentprofile
+    elif role == "teacher":
+        return user.teacherprofile
+    return None

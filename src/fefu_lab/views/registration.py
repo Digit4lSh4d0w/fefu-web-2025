@@ -21,6 +21,15 @@ def registration(request: HttpRequest) -> HttpResponse:
                 faculty=form.cleaned_data["faculty"],
             )
             students_group, _ = Group.objects.get_or_create(name="Студенты")
+
+            codenames = [
+                "view_course",
+                "view_enrollment",
+            ]
+            for codename in codenames:
+                permission = Permission.objects.get(codename=codename)
+                students_group.permissions.add(permission)
+
             user.groups.add(students_group)
 
             messages.success(request, f"Аккаунт {user.username} успешно создан!")
@@ -38,6 +47,8 @@ def registration(request: HttpRequest) -> HttpResponse:
                 "add_course",
                 "change_course",
                 "view_enrollment",
+                "add_enrollment",
+                "change_enrollment",
             ]
             for codename in codenames:
                 permission = Permission.objects.get(codename=codename)

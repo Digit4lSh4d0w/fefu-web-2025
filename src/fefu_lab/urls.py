@@ -35,6 +35,7 @@ urlpatterns = [
     path("courses/", views.course_list, name="courses_list"),
     path("course/create/", views.course_create, name="course_create"),
     path("course/<slug:slug>/", views.CourseDetailView.as_view(), name="course_detail"),
+    path("course/<slug:slug>/update/", views.course_update, name="course_update"),
     # Feedback
     path("feedback/", views.feedback, name="feedback"),
 ]
