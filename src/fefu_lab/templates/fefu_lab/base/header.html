@@ -1,7 +1,9 @@
 <header>
   <nav class="header-navigation">
     <a href="{% url 'fefu_lab:index' %}">Главная</a>
+    {% if perms.fefu_lab.view_course %}
     <a href="{% url 'fefu_lab:courses_list' %}">Курсы</a>
+    {% endif %}
     <a href="{% url 'fefu_lab:students_list' %}">Студенты</a>
     {% if not user.is_authenticated %}
     <a href="{% url 'fefu_lab:login' %}">Вход</a>

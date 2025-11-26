@@ -1,0 +1,15 @@
+{% extends 'fefu_lab/base/base.html' %}
+
+{% block title %}Список курсов{% endblock %}
+
+{% block content %}
+  {% if courses %}
+  <h1>Список всех курсов</h1>
+  {% include 'fefu_lab/base/courses_list.html' with courses=courses %}
+  {% else %}
+  <h1>Курсов пока нет</h1>
+  {% endif %}
+  {% if perms.fefu_lab.add_course %}
+  <p><a href="{% url 'fefu_lab:course_create' %}">Создать курс</a></p>
+  {% endif %}
+{% endblock %}

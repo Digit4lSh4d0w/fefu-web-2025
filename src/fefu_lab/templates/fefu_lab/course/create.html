@@ -1,0 +1,27 @@
+{% extends 'fefu_lab/base/base.html' %}
+{% load static %}
+
+{% block title %}Создание курса{% endblock %}
+
+{% block content %}
+<h1>Создание курса</h1>
+
+{% if form.errors %}
+{% include 'fefu_lab/base/form_errors.html' with form=form %}
+{% endif %}
+
+<div id="courseCreationForm" class="form-container">
+  <form method="post">
+    {% csrf_token %}
+
+    {% for field in form %}
+    <div class="form-group">
+      <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}
+    </div>
+    {% endfor %}
+
+    <button type="submit">Создать</button>
+  </form>
+</div>
+{% endblock %}
