@@ -162,13 +162,13 @@ def get_user_role(user):
     try:
         if user.studentprofile.is_active:
             return "student"
-    except StudentProfile.DoesNotExist:
+    except Exception:
         pass
 
     try:
         if user.teacherprofile.is_active:
             return "teacher"
-    except TeacherProfile.DoesNotExist:
+    except Exception:
         pass
 
     return None

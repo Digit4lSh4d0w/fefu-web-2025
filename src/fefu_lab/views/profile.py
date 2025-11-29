@@ -9,9 +9,7 @@ from fefu_lab.models import Course, get_user_role
 
 
 @final
-class ProfileView(views.View, LoginRequiredMixin):
-    login_url = "fefu_lab:login"
-
+class ProfileView(LoginRequiredMixin, views.View):
     def get(self, request: HttpRequest) -> HttpResponse:
         role = get_user_role(request.user)
         if role == "student":

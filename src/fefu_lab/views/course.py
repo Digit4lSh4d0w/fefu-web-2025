@@ -12,7 +12,7 @@ from fefu_lab.models import Course, Enrollment, get_user_profile, get_user_role
 
 
 @final
-class CourseDetailView(generic.View, LoginRequiredMixin, PermissionRequiredMixin):
+class CourseDetailView(LoginRequiredMixin, PermissionRequiredMixin, generic.View):
     """Страница детализации информации о курсе."""
 
     template_name = "fefu_lab/course/details.html"
