@@ -1,0 +1,13 @@
+{% extends 'fefu_lab/base/base.html' %}
+
+{% block title %}Курс {{ course.title }}{% endblock %}
+
+{% block content %}
+<h1>Курс "{{ course.title|lower }}"</h1>
+<p>Идентификатор: {{ course.slug }}</p>
+<p>Описание: {{ course.description }}</p>
+<p>Продолжительность: {{ course.duration }} минут</p>
+<p>Преподаватель: {{ course.teacher_display }}</p>
+<p>Активен: {{ course.is_active_display }}</p>
+<p>Дата создания: {{ course.created_at }}</p>
+{% endblock %}

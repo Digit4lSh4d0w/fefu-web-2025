@@ -1,10 +1,11 @@
-from typing import final, override
+from typing import final
 
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
 
-class AbstractModel(models.Model):
+class CustomAbstractModel(models.Model):
     """Абстрактная модель.
 
     Класс, содержащий часто используемые поля и методы.
@@ -13,6 +14,9 @@ class AbstractModel(models.Model):
     is_active = models.BooleanField(default=True, verbose_name="Активен")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
+    deleted_at = models.DateTimeField(
+        null=True, blank=True, verbose_name="Дата удаления"
+    )
 
     class Meta:
         abstract = True
@@ -24,33 +28,39 @@ class AbstractModel(models.Model):
         return "Нет"
 
 
-class AbstractUser(AbstractModel):
+class CustomAbstractUser(CustomAbstractModel):
     """Абстрактный пользователь.
 
     Класс абстрактного пользователя для определения конечных классов
     студента и преподавателя без повторения одних и тех же полей.
     """
 
-    first_name = models.CharField(max_length=20, verbose_name="Имя")
-    last_name = models.CharField(max_length=50, verbose_name="Фамилия")
-    email = models.EmailField(max_length=50, unique=True, verbose_name="Email")
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, verbose_name="Пользователь"
+    )
     birthday = models.DateField(null=True, blank=True, verbose_name="Дата рождения")
 
     class Meta:
         abstract = True
-        ordering = ["last_name", "first_name"]
-        unique_together = ["first_name", "last_name", "birthday"]
-
-    def __str__(self):
-        return f"{self.last_name} {self.first_name}"
 
     @property
-    def full_name(self):
-        return str(self)
+    def first_name_display(self) -> str:
+        return self.user.first_name
+
+    @property
+    def last_name_display(self) -> str:
+        return self.user.last_name
+
+    @property
+    def full_name_display(self):
+        return f"{self.last_name_display} {self.first_name_display}"
+
+    def __str__(self):
+        return self.full_name_display
 
 
 @final
-class Student(AbstractUser):
+class StudentProfile(CustomAbstractUser):
     FACULTY_CHOICES = {
         "CS": "Кибербезопасность",
         "SE": "Программная инженерия",
@@ -70,7 +80,6 @@ class Student(AbstractUser):
     class Meta:
         verbose_name = "Студент"
         verbose_name_plural = "Студенты"
-        unique_together = ["first_name", "last_name", "birthday", "faculty"]
         db_table = "students"
 
     def get_absolute_url(self):
@@ -81,23 +90,26 @@ class Student(AbstractUser):
 
 
 @final
-class Teacher(AbstractUser):
+class TeacherProfile(CustomAbstractUser):
     @final
     class Meta:
         verbose_name = "Преподаватель"
         verbose_name_plural = "Преподаватели"
-        unique_together = ["first_name", "last_name", "birthday"]
         db_table = "teachers"
 
 
 @final
-class Course(AbstractModel):
+class Course(CustomAbstractModel):
     title = models.CharField(max_length=200, unique=True, verbose_name="Название")
-    slug = models.SlugField(max_length=200, unique=True, verbose_name="Машиночитаемое название")
+    slug = models.SlugField(
+        max_length=200, unique=True, verbose_name="Машиночитаемое название"
+    )
     description = models.CharField(max_length=1500, verbose_name="Описание")
-    duration = models.PositiveIntegerField(verbose_name="Продолжительность курса (в минутах)")
+    duration = models.PositiveIntegerField(
+        verbose_name="Продолжительность курса (в минутах)"
+    )
     teacher = models.ForeignKey(
-        Teacher,
+        TeacherProfile,
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -122,9 +134,9 @@ class Course(AbstractModel):
 
 
 @final
-class Enrollment(AbstractModel):
+class Enrollment(CustomAbstractModel):
     student = models.ForeignKey(
-        Student,
+        StudentProfile,
         on_delete=models.CASCADE,
         verbose_name="Студент",
     )
@@ -143,3 +155,30 @@ class Enrollment(AbstractModel):
 
     def __str__(self):
         return str(self.course)
+
+
+def get_user_role(user):
+    """Возвращает роль пользователя по активному профилю."""
+    try:
+        if user.studentprofile.is_active:
+            return "student"
+    except Exception:
+        pass
+
+    try:
+        if user.teacherprofile.is_active:
+            return "teacher"
+    except Exception:
+        pass
+
+    return None
+
+
+def get_user_profile(user):
+    """Возвращает активный профиль пользователя по роли."""
+    role = get_user_role(user)
+    if role == "student":
+        return user.studentprofile
+    elif role == "teacher":
+        return user.teacherprofile
+    return None

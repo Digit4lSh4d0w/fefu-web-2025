@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 
 from fefu_lab.forms import StudentEnrollmentForm
-from fefu_lab.models import Course, Student
+from fefu_lab.models import Course, StudentProfile
 
 
 @final
@@ -13,8 +13,10 @@ class IndexView(views.View):
     template_name = "fefu_lab/index.html"
 
     def get(self, request):
-        latest_students = Student.objects.filter(is_active=True)[:5]
-        latest_courses = Course.objects.filter(is_active=True).order_by("-created_at")[:5]
+        latest_students = StudentProfile.objects.filter(is_active=True)[:5]
+        latest_courses = Course.objects.filter(is_active=True).order_by("-created_at")[
+            :5
+        ]
         form = StudentEnrollmentForm()
 
         return render(
@@ -31,15 +33,14 @@ class IndexView(views.View):
         form = StudentEnrollmentForm(request.POST or None)
 
         if form.is_valid():
-            enrollment = form.save()
-            messages.success(
-                request,
-                f"Студент {enrollment.student.full_name} успешно записан на курс!",
-            )
+            form.save()
+            messages.success(request, "Студент успешно записан на курс!")
             return redirect("fefu_lab:index")
 
-        latest_students = Student.objects.filter(is_active=True)[:5]
-        latest_courses = Course.objects.filter(is_active=True).order_by("-created_at")[:5]
+        latest_students = StudentProfile.objects.filter(is_active=True)[:5]
+        latest_courses = Course.objects.filter(is_active=True).order_by("-created_at")[
+            :5
+        ]
 
         return render(
             request,

@@ -2,7 +2,7 @@ from typing import final
 
 from django import forms
 
-from fefu_lab.models import Course, Teacher
+from fefu_lab.models import Course, TeacherProfile
 
 
 @final
@@ -60,18 +60,6 @@ class CourseCreationForm(forms.ModelForm):
         ),
     )
 
-    teacher = forms.ModelChoiceField(
-        queryset=Teacher.objects.all(),
-        label="Преподаватель:",
-        required=True,
-        initial=Teacher.objects.all()[0],
-        widget=forms.Select(
-            attrs={
-                "class": "form-input",
-            },
-        ),
-    )
-
     @final
     class Meta:
         model = Course
@@ -80,5 +68,4 @@ class CourseCreationForm(forms.ModelForm):
             "slug",
             "description",
             "duration",
-            "teacher",
         ]

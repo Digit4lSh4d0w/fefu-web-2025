@@ -3,13 +3,15 @@
 {% block title %}Студент {{ student.full_name }}{% endblock %}
 
 {% block content %}
-  <h1>Студент {{ student.full_name }}</h1>
+<h1>Студент {{ student.full_name }}</h1>
 
-  {% include 'fefu_lab/base/student_enrollment_form.html' with form=form %}
+<p>Имя: {{ student.first_name_display }}</p>
+<p>Фамилия: {{ student.last_name_display }}</p>
+<p>День рождения: {{ student.birthday }}</p>
+<p>Факультет: {{ student.faculty_display }}</p>
+<p>Активен: {{ student.is_active_display }}</p>
 
-  <p>Имя: {{ student.first_name }}</p>
-  <p>Фамилия: {{ student.last_name }}</p>
-  <p>День рождения: {{ student.birthday }}</p>
-  <p>Факультет: {{ student.faculty_display }}</p>
-  <p>Активен: {{ student.is_active_display }}</p>
+{% if perms.fefu_lab.add_enrollment %}
+{% include 'fefu_lab/base/student_enrollment_form.html' with form=form %}
+{% endif %}
 {% endblock %}
