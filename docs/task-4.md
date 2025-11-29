@@ -105,6 +105,12 @@ class ProfileView(LoginRequiredMixin, views.View):
 
 ### Хэши паролей пользователей
 
+Запрос в базу данных:
+
+```sql
+select password, username, last_name, first_name from auth_user;
+```
+
 ```plaintext
 ┌──────────────────────────────────────────────────────────────┬──────────┬───────────┬────────────┐
 │                           password                           │ username │ last_name │ first_name │
