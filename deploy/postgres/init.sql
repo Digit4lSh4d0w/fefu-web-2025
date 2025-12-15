@@ -1,0 +1,3 @@
+CREATE USER "fefu-lab" WITH PASSWORD 'E1i26ZFa4b5L8UdE';
+CREATE DATABASE "fefu-lab" OWNER "fefu-lab";
+GRANT ALL PRIVILEGES ON DATABASE "fefu-lab" TO "fefu-lab";
