@@ -19,12 +19,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-=f-ree-3)(f2i%g(4lj^m#eo_=3aq60r^1r3&v@pkpj)t0e)l2"
+SECRET_KEY = r"|Zpg8A,q*jZXmhDzK`mJ0ay2T1hAION\]Vo;#oONlf6|qgZr)phdFY.$Mh%S6Lh$"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["fefu-django-app"]
+CSRF_TRUSTED_ORIGINS = ["http://fefu-django-app"]
 
 
 # Application definition
@@ -73,9 +74,17 @@ WSGI_APPLICATION = "web_2025.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": BASE_DIR / "db.sqlite3",
+    # },
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "HOST": "localhost",
+        "PORT": "5432",
+        "USER": "fefu-lab",
+        "PASSWORD": "E1i26ZFa4b5L8UdE",
+        "NAME": "fefu-lab",
     },
 }
 
